@@ -74,7 +74,7 @@ app.get('/api/shoes', async (req, res) => {
   }
 })
 app.get('/api/shoes/brand/:brandname', (req, res) => {
-    res.json('Ayabonga');
+    
 })
 app.get('/api/shoes/size/:size', (req, res) => {
     res.json('Booi');
