@@ -10,26 +10,27 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script type="text/x-template" class="ShoeTemplate">
     <h2>Search Items</h2>
       {{#each shoeList}}
       <tr>
           <td>Brand:</td>
-          <td>{{shoeBrand}}</td>
+          <td>{{brand}}</td>
         </tr>
         <br>
         <tr>
            <td>Color:</td>
-           <td>{{colour}}</td>
+           <td>{{color}}</td>
          </tr>
          <tr>
              <br>
          <td>Size:</td>
-          <td>{{sizeShoe}}</td>
+          <td>{{shoesize}}</td>
            </tr>
            <br>
            <td>In_Stock:</td>
-          <td>{{qty}}</td>
+          <td>{{quantity}}</td>
            </tr>
            <br>
            
@@ -47,17 +48,17 @@
             {{#each BasketList}}
             <tr>
                 <td>Brand:</td>
-                <td>{{shoeBrand}}</td>
+                <td>{{brand}}</td>
               </tr>
               <br>
               <tr>
                  <td>Color:</td>
-                 <td>{{colour}}</td>
+                 <td>{{color}}</td>
                </tr>
                <tr>
                    <br>
                <td>Size:</td>
-                <td>{{sizeShoe}}</td>
+                <td>{{shoesize}}</td>
                  </tr>
                  <br>
                  <td>In_Stock:</td>
@@ -83,6 +84,7 @@
   </div>
   <div class="row">
       <div class="AddNew">
+        <form action="/api/shoes" method="post">
           <h2>Add New Items</h2>
           <div class="messages">
               <div class="alert">
@@ -108,7 +110,7 @@
             <option value="White">white</option>
             <option value="Blue">Blue</option>
           </select>
-          <select shoeColor='shoeSize' class="shoeSize">
+          <select name='shoeSize' class="shoeSize">
               <option value="">Shoe Size</option>
               <option value="6">6</option>
               <option value="7">7</option>
@@ -118,10 +120,10 @@
             <input type="text" name="qty" value="" placeholder="Enter Qty" class="shoeQty">
             <input type="text" name="price" value="" placeholder="Enter Price" class="shoePrice">
             <div class="displayButton">
-          <button type="button" name="button" class="btnStock">Add Stock</button>
+          <button type="submit" name="button" class="btnStock">Add Stock</button>
             </div>
           </div>
-    
+        </form>
   </div>
      
      <div class="row">

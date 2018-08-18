@@ -168,9 +168,20 @@ describe("The fillter function", () => {
 // })
 
 
-describe('remove Items from cart', () => {
-    it('Should remove all the items from shopping cart',async()=> {
-        let clearCart = await shoetest.clearCart();
+// describe('remove Items from cart', () => {
+//     it('Should remove all the items from shopping cart',async()=> {
+//         let clearCart = await shoetest.clearCart();
+//          assert.equal(clearCart,'shopping cart is empty!!!')
+//     })
+// })
+
+
+describe('View all Items from a cart', () => {
+    it('Should get all the items from shopping cart',async()=> {
+        let clearCart = await shoetest.cartItems();
+
+        console.log(clearCart.rows);
+
          assert.equal(clearCart,'shopping cart is empty!!!')
     })
 })

@@ -1,51 +1,33 @@
-const axios = require('axios');
 
-const ShoeCatalogue = () => {
+const ShoeCatalogue_api = () => {
 
     const getStocks = () => {
-        axios.get('/api/shoes')
-            .then((result) => {
-                console.log(result);
-                shoeElem = document.querySelector('.shoes');
-                result.data.data.forEach(shoe => {
-                    let sh = "<li>" + shoe.brand + '-' + shoe.color + "</li>";
-                    shoeElem.innerHTMl += sh;
-                });
-            })
+       return axios.get('/api/shoes');      
     }
 
-    const filterByBrand = () => {
-        axios.get('/api/shoes/brand/:brandname').
-        then((result) => {
-
-        })
+    const filterByBrand = (brandname) => {  
+      return axios.get('/api/shoes/brand/'+brandname);
     }
 
-    const filterBySize = () => {
-        axios.get('/api/shoes/size/:size').
-        then((result) => {
-
-        })
+    const filterBySize = (size) => {
+       return axios.get(`/api/shoes/size/${size}`)
     }
 
-    const filterByBrandandSize = () => {
-        axios.get('/api/shoes/brand/:brandname/size/:size').
-        then((result) => {})
+    const filterByBrandandSize = (brandname,size) => {
+      return axios.get(`/api/shoes/brand/${brandname}/size/${size}`);
     }
 
-
-    const addToCart = () => {
-        axios.post('/api/shoes/sold/:id').
-        then((result) => {})
+    const addToCart = (id) => {
+      return axios.post(`api/shoes/cart/${id}`);
     }
 
     const viewCart = () => {
-        axios.post('/api/shoes').
-        then((result) => {
-
-        })
+       return axios.get('/api/view_cart');
     }
-
+  
+   const addNewStock =() =>{
+    return axios.post('/api/shoes');
+   }
 
     return {
         viewStocks: getStocks,
@@ -53,6 +35,7 @@ const ShoeCatalogue = () => {
         searchBySize: filterBySize,
         filterByBrandAndSize: filterByBrandandSize,
         addToShoppingCart: addToCart,
-        viewShopping: viewCart
+        viewShopping: viewCart,
+        addNewStock
     }
 }

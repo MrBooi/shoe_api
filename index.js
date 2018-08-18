@@ -58,6 +58,10 @@ app.set('view engine', 'handlebars');
 
 const shoe = Shoe(pool);
 
+app.get('/',async (req,res)=>{
+  res.redirect('/api/shoes');
+})
+
 app.get('/api/shoes', async (req, res) => {
     try {
         let shoes = await shoe.allShoes();
@@ -65,20 +69,31 @@ app.get('/api/shoes', async (req, res) => {
             status: "success",
             data: shoes
         });
-
     } catch (e) {
         res.json({
             status: 'error',
             error: e.stack
-
         })
     }
 })
+app.get('/api/view_cart', async (req, res) => {
+    try {
+        let shopping_cart = await shoe.cartItems();
+        res.json({
+            status: "success",
+            data: shopping_cart
+        })
+    } catch (err) {
+        res.json({
+            status: 'error',
+            error: e.stack
+        })
+    }
+})
+
 app.get('/api/shoes/brand/:brandname', async (req, res) => {
     try {
-        const {
-            brandname
-        } = req.params;
+        const {brandname } = req.params;
         if (brandname !== '' && brandname !== undefined) {
             let searchByBrand = await shoe.findByBrand(brandname);
             res.json({
@@ -96,7 +111,7 @@ app.get('/api/shoes/brand/:brandname', async (req, res) => {
         })
     }
 })
-app.get('/api/shoes/size/:size', (req, res) => {
+app.get('/api/shoes/size/:size', async (req, res) => {
     try {
         const {
             size
@@ -126,7 +141,8 @@ app.get('/api/shoes/brand/:brandname/size/:size', async (req, res) => {
         } = req.params;
         if (brandname !== '' && brandname !== undefined &&
             size !== '' || size !== undefined) {
-            let searchByBrandAndSize = await shoe.findBybrandAndSize(brandname, size);
+            let searchByBrandAndSize = 
+            await shoe.findBybrandAndSize(brandname,size);
             res.json({
                 status: "success",
                 data: searchByBrandAndSize
@@ -143,12 +159,12 @@ app.get('/api/shoes/brand/:brandname/size/:size', async (req, res) => {
     }
 })
 
-app.post('/api/shoes/sold/:id', async (req, res) => {
+app.post('/api/shoes/cart/:id', async (req, res) => {
     try {
         const {
             id
         } = req.params;
-        if (id !== '' && id !== undefined) {
+        if (id !== '' && id !== undefined){
             let addToCart = await shoe.addToShoppingCart(id);
             res.json({
                 status: "success",
@@ -174,8 +190,9 @@ app.post('/api/shoes', async (req, res) => {
             qty,
             price
         } = req.body;
-        if (shoeBrand !== '' && shoeSize !== '' && qty !== '' &&
-            price !== '' && shoeColor !== '') {
+         console.log(shoeBrand,shoeColor,shoeSize,qty,price);
+        if (shoeBrand !== undefined && shoeSize !== undefined && qty !== undefined &&
+            price !== undefined && shoeColor !== undefined) {
             let addNewShoe = await shoe.addShoe(shoeBrand, shoeColor, shoeSize, price, qty);
             res.json({
                 status: "success",
@@ -184,7 +201,6 @@ app.post('/api/shoes', async (req, res) => {
         } else {
             return false
         }
-
     } catch (e) {
         res.json({
             status: 'error',
@@ -195,5 +211,10 @@ app.post('/api/shoes', async (req, res) => {
 })
 
 app.listen(PORT, (err) => {
-    console.log('App starting on port', PORT)
+    if (PORT) {
+    console.log('App starting on port', PORT);
+    }else{
+     console.log('App starting on port', err);
+    }
+   
 });

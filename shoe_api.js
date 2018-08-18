@@ -58,10 +58,10 @@ module.exports = shoeApi = (pool) => {
       let findID = await pool.query("SELECT * FROM shoes WHERE id=$1", [shoe_id]);
       if (findID.rowCount > 0) {
         let findIdOnCart = await pool.query('SELECT * FROM shoe_basket where brand_id=$1', [shoe_id]);
-        console.log(findIdOnCart.rowCount)
         if (findIdOnCart.rowCount > 0) {
           await pool.query(`UPDATE shoe_basket SET qty=(qty+1) WHERE brand_id=${shoe_id}`);
           await pool.query(`UPDATE shoes SET quantity=(quantity-1) where id=${shoe_id}`);
+        
         } else {
           await pool.query(`INSERT INTO shoe_basket(qty,brand_id) 
            values(${1},${shoe_id})`);
@@ -74,6 +74,18 @@ module.exports = shoeApi = (pool) => {
       return false;
     }
 
+  }
+  
+  const viewCart = async ()=> {
+    cartList = await pool.query(`SELECT * FROM
+    shoe_basket JOIN shoes on shoes.id=shoe_basket.brand_id 
+   `); 
+  if(cartList.rowCount>0){ 
+    console.log("here");
+    return cartList.rows;
+  }else{
+    return 'Shopping cart is empty!!!!';
+  }
   }
 
   const removeFromCart = async () => {
@@ -100,6 +112,7 @@ module.exports = shoeApi = (pool) => {
     findBybrandAndSize: filterbrandAndSize,
     addShoe: addShoe,
     addToShoppingCart: addToCart,
+    cartItems: viewCart,
     clearCart: removeFromCart
   }
 
