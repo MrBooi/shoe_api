@@ -80,8 +80,6 @@ function clearCart(){
 
 addStockBtn.addEventListener('click',function(){
  addStock();
-
-
 });
 
 // Search Items
