@@ -17,6 +17,16 @@ h2{
   font-size: 1.3rem;
   margin-left: 2rem;
 }
+
+.hoverboard {
+  background: #ccc;
+  position: absolute !important;
+  z-index:10000;
+}
+.hoverboard a {
+  width:100%;
+}
+
 .AddNew{
    margin-left: 3px;
    margin-right: 3px;

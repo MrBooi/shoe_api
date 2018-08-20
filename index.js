@@ -75,7 +75,8 @@ app.get('/api/shoes', async (req, res) => {
             error: e.stack
         })
     }
-})
+});
+
 app.get('/api/view_cart', async (req, res) => {
     try {
         let shopping_cart = await shoe.cartItems();
@@ -89,8 +90,7 @@ app.get('/api/view_cart', async (req, res) => {
             error: e.stack
         })
     }
-})
-
+});
 app.get('/api/shoes/brand/:brandname', async (req, res) => {
     try {
         const {brandname } = req.params;
@@ -110,7 +110,7 @@ app.get('/api/shoes/brand/:brandname', async (req, res) => {
 
         })
     }
-})
+});
 app.get('/api/shoes/size/:size', async (req, res) => {
     try {
         const {
@@ -158,14 +158,44 @@ app.get('/api/shoes/brand/:brandname/size/:size', async (req, res) => {
         })
     }
 })
+app.get('/api/remove_cart',async()=>{
+    try {
+      let clear = await shoe.clearCart();
+        res.json({
+            status: "success",
+            data: clear
+        });
+    } catch (e) {
+        res.json({
+            status: "error"
+        });
+    }
+})
+
+app.get('/api/cart/total',async (req,res)=>{
+   try {
+      let cart_total = await shoe.total();  
+      res.json({
+          status:'success',
+          data: cart_total
+      })
+   } catch (e) {
+    res.json({
+         status:'error',
+         data: e.stack
+    })
+   }
+})
 
 app.post('/api/shoes/cart/:id', async (req, res) => {
     try {
         const {
             id
         } = req.params;
+        console.log(id);
         if (id !== '' && id !== undefined){
             let addToCart = await shoe.addToShoppingCart(id);
+             console.log(addToCart)
             res.json({
                 status: "success",
                 data: addToCart
@@ -183,29 +213,24 @@ app.post('/api/shoes/cart/:id', async (req, res) => {
 
 app.post('/api/shoes', async (req, res) => {
     try {
-        const {
-            shoeBrand,
-            shoeColor,
-            shoeSize,
-            qty,
-            price
-        } = req.body;
-         console.log(shoeBrand,shoeColor,shoeSize,qty,price);
-        if (shoeBrand !== undefined && shoeSize !== undefined && qty !== undefined &&
-            price !== undefined && shoeColor !== undefined) {
-            let addNewShoe = await shoe.addShoe(shoeBrand, shoeColor, shoeSize, price, qty);
+        const { brand,color,shoeSize,quantity,price} = req.body;
+        if (brand !== undefined && shoeSize !== undefined && quantity !== undefined &&
+            price !== undefined && color !== undefined) {
+            let addNewShoe = await shoe.addShoe(brand, color, shoeSize, price, quantity);
             res.json({
                 status: "success",
                 data: addNewShoe
             })
         } else {
-            return false
+            res.json({
+                status: 'error',
+                error: e.stack
+            })
         }
     } catch (e) {
         res.json({
             status: 'error',
             error: e.stack
-
         })
     }
 })

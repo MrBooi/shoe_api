@@ -15,10 +15,9 @@ CREATE TABLE shoe_basket
     id serial not null PRIMARY KEY ,
     qty int not null,
     brand_id int not null,
+    subtotal DECIMAL not null,
     foreign key (brand_id) references shoes(id)
 );
-
-
 
 -- --  INSERT data into shoes
 INSERT INTO shoes(brand,color,shoeSize,price,quantity)VALUES('Adidas', 'brown', 6,2400,7);
