@@ -29,7 +29,7 @@ var displayShoesBasketElem = document.querySelector('.ShoppingBasket');
 var shoe_Catalogue = ShoeCatalogue_api();
 
 const addStock = () => {
-   if (brandElem.value !== "" && colorElem.value !== "" && colorElem.value !== "" && sizeElem.value !== "" && BrandPrice.value !=="") {
+  if (brandElem.value !== "" && colorElem.value !== "" && colorElem.value !== "" && sizeElem.value !== "" && BrandPrice.value !== "") {
     shoe_Catalogue.addNewStock(
       brandElem.value,
       colorElem.value,
@@ -37,92 +37,105 @@ const addStock = () => {
       BrandPrice.value,
       stockQtyElem.value,
     ).then(result => {
-      console.log(result.data.status);
       if (result.data.status === "success") {
+          getShoes();
+          clear_fields();
         successfulElem.style.display = 'inline-block';
-      } 
+      }
     })
-  }else{
-    alertElem.style.display = 'inline-block';
   }
-  //  location.reload();
 }
 
 const searchByID = (idValue) => {
-  if (shoe_Catalogue.addToShoppingCart(idValue.id)) {
-    shoe_Catalogue.viewShopping()
-      .then(result => {
-        displayShoesBasketElem.innerHTML = BasketshoeTemplate({
-          BasketList: result.data.data
-        });
-      })
-  } else {
-    removeItemElem.disable = true;
-  }
-
-  window.location.reload();
+  shoe_Catalogue.addToShoppingCart(idValue.id)
+    .then(result => {
+      getShoes();
+    })
 }
 
-function clearCart(){
-   shoe_Catalogue.removeStock();
-   shoe_Catalogue.viewShopping()
-   .then(result=>{ 
-     console.log(result.data.data)
-    displayShoesBasketElem.innerHTML = BasketshoeTemplate({
-      BasketList:result.data.data
-    });
-   })
-   location.reload();
+const clearCart=()=> {
+  shoe_Catalogue.removeStock()
+    .then(result => {
+    if(result.data.status='status'){
+      viewCart();
+    }
+    })
 }
 
 addStockBtn.addEventListener('click', function () {
   addStock();
 });
 
-// Search Items
 searchShoesBtn.addEventListener('click', function () {
-  shoe_Catalogue.searchByBrand(shoeSelect.value)
-    .then(result => {
-      displayShoesElem.innerHTML = shoeTemplate({
-        shoeList: result.data.data
-      });
-    })
 
-  shoe_Catalogue.searchBySize(ShoeSizeSelect.value)
+  if (shoeSelect.value !=='') {
+    shoe_Catalogue.searchByBrand(shoeSelect.value)
     .then(result => {
-      displayShoesElem.innerHTML = shoeTemplate({
-        shoeList: result.data.data
-      });
+      let searchData = result.data.data;
+      search_stock(searchData);
     })
+  }
+   
+  if (ShoeSizeSelect.value !=='') {
+    shoe_Catalogue.searchBySize(ShoeSizeSelect.value)
+    .then(result => {
+      let searchData = result.data.data;
+      search_stock(searchData);
+    })
+  }
 
-  shoe_Catalogue.filterByBrandAndSize(shoeSelect.value, ShoeSizeSelect.value)
+  if (shoeSelect.value !=='' && ShoeSizeSelect.value !=='') {
+    shoe_Catalogue.filterByBrandAndSize(shoeSelect.value, ShoeSizeSelect.value)
     .then(result => {
-      displayShoesElem.innerHTML = shoeTemplate({
-        shoeList: result.data.data
-      });
+      let searchData = result.data.data;
+      search_stock(searchData);
     })
+  }
+
+  
 
 });
-
 
 window.addEventListener('load', () => {
-  shoe_Catalogue.viewStocks() 
+  getShoes();
+});
+
+removeItemElem.addEventListener('click', clearCart);
+
+const getShoes = () => {
+  shoe_Catalogue.viewStocks()
     .then(result => {
       displayShoesElem.innerHTML = shoeTemplate({
         shoeList: result.data.data
       });
+      viewCart();
     })
-   
-    shoe_Catalogue.total()
-  .then(result=>{
-    let total =result.data.data;
-    shoe_Catalogue.viewShopping()
-    .then(result => {
-      displayShoesBasketElem.innerHTML = BasketshoeTemplate({
-        BasketList: result.data.data, total
-      });
-    })
-  })
-});
+}
 
- removeItemElem.addEventListener('click',clearCart);
+const search_stock = (searchData) => {
+  displayShoesElem.innerHTML = shoeTemplate({
+    shoeList: searchData
+  });
+}
+
+const viewCart = () => {
+  shoe_Catalogue.total()
+    .then(result => {
+      let total = result.data.data;
+      shoe_Catalogue.viewShopping()
+        .then(result => {
+          displayShoesBasketElem.innerHTML = BasketshoeTemplate({
+            BasketList: result.data.data,
+            total
+          });
+        })
+    })
+}
+
+const clear_fields=()=>{
+  brandElem.value = "";
+  colorElem.value = "";
+  stockQtyElem.value = "";
+  sizeElem.value = "";
+  BrandPrice.value = "";
+}

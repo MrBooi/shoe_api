@@ -158,16 +158,17 @@ app.get('/api/shoes/brand/:brandname/size/:size', async (req, res) => {
         })
     }
 })
-app.get('/api/remove_cart',async()=>{
+app.get('/api/remove_cart',async(req,res)=>{
     try {
-      let clear = await shoe.clearCart();
+      let clear = await shoe.clearCart();  
         res.json({
             status: "success",
             data: clear
         });
     } catch (e) {
         res.json({
-            status: "error"
+            status: "error",
+             error: e.stack
         });
     }
 })
@@ -192,10 +193,8 @@ app.post('/api/shoes/cart/:id', async (req, res) => {
         const {
             id
         } = req.params;
-        console.log(id);
         if (id !== '' && id !== undefined){
             let addToCart = await shoe.addToShoppingCart(id);
-             console.log(addToCart)
             res.json({
                 status: "success",
                 data: addToCart
