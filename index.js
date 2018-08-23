@@ -1,5 +1,4 @@
 const express = require('express');
-const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const flash = require('express-flash');
 const session = require('express-session');
@@ -41,20 +40,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
-
-app.engine('handlebars', exphbs({
-    defaultLayout: 'main'
-    // helpers: {
-    //     checkedDays: function () {
-    //         if (this.checked) {
-    //             return 'checked';
-    //         }
-    //     }
-    // }
-
-}));
-
-app.set('view engine', 'handlebars');
 
 const shoe = Shoe(pool);
 
