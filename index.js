@@ -2,7 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const flash = require('express-flash');
 const session = require('express-session');
-const Shoe = require('./shoe_api.js');
+const Cart = require('./routes/cart');
+const Shopping_shoes = require('./routes/shopping_shoes');
+const CartService = require('./services/shopping_cart');
+const ShoppingService = require('./services/shoes');
+
 const app = express();
 
 let PORT = process.env.PORT || 3000;
@@ -20,8 +24,6 @@ app.use(flash());
 const pg = require('pg');
 const Pool = pg.Pool;
 
-
-
 let useSSL = false;
 if (process.env.DATABASE_URL) {
     useSSL = true;
@@ -34,6 +36,12 @@ const pool = new Pool({
     ssl: useSSL
 });
 
+const cartService =CartService(pool);
+const shoppingService= ShoppingService(pool); 
+
+const shoppingCartRoutes  = Cart(cartService);
+const shoppingShoesRoutes = Shopping_shoes(shoppingService);
+
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -41,183 +49,19 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-const shoe = Shoe(pool);
 
-app.get('/',async (req,res)=>{
-  res.redirect('/api/shoes');
-})
+// shoes 
+app.get('/api/shoes',shoppingShoesRoutes.show_shoes);
+app.post('/api/shoes',shoppingShoesRoutes.add);
+app.get('/api/shoes/brand/:brandname',shoppingShoesRoutes.searchByBrand);
+app.get('/api/shoes/size/:size',shoppingShoesRoutes.searchBySize);
+app.get('/api/shoes/brand/:brandname/size/:size',shoppingShoesRoutes.filterByBrandAndSize);
 
-app.get('/api/shoes', async (req, res) => {
-    try {
-        let shoes = await shoe.allShoes();
-        res.json({
-            status: "success",
-            data: shoes
-        });
-    } catch (e) {
-        res.json({
-            status: 'error',
-            error: e.stack
-        })
-    }
-});
-
-app.get('/api/view_cart', async (req, res) => {
-    try {
-        let shopping_cart = await shoe.cartItems();
-        res.json({
-            status: "success",
-            data: shopping_cart
-        })
-    } catch (err) {
-        res.json({
-            status: 'error',
-            error: e.stack
-        })
-    }
-});
-app.get('/api/shoes/brand/:brandname', async (req, res) => {
-    try {
-        const {brandname } = req.params;
-        if (brandname !== '' && brandname !== undefined) {
-            let searchByBrand = await shoe.findByBrand(brandname);
-            res.json({
-                status: "success",
-                data: searchByBrand
-            })
-        } else {
-            return false;
-        }
-    } catch (e) {
-        res.json({
-            status: 'error',
-            error: e.stack
-
-        })
-    }
-});
-app.get('/api/shoes/size/:size', async (req, res) => {
-    try {
-        const {
-            size
-        } = req.params;
-        if (size !== '' && size !== undefined) {
-            let searchBySize = await shoe.findBySize(size);
-            res.json({
-                status: "success",
-                data: searchBySize
-            })
-        } else {
-            return false;
-        }
-    } catch (e) {
-        res.json({
-            status: 'error',
-            error: e.stack
-
-        })
-    }
-})
-app.get('/api/shoes/brand/:brandname/size/:size', async (req, res) => {
-    try {
-        const {
-            brandname,
-            size
-        } = req.params;
-        if (brandname !== '' && brandname !== undefined &&
-            size !== '' || size !== undefined) {
-            let searchByBrandAndSize = 
-            await shoe.findBybrandAndSize(brandname,size);
-            res.json({
-                status: "success",
-                data: searchByBrandAndSize
-            })
-        } else {
-            return false;
-        }
-    } catch (e) {
-        res.json({
-            status: 'error',
-            error: e.stack
-
-        })
-    }
-})
-app.get('/api/remove_cart',async(req,res)=>{
-    try {
-      let clear = await shoe.clearCart();  
-        res.json({
-            status: "success",
-            data: clear
-        });
-    } catch (e) {
-        res.json({
-            status: "error",
-             error: e.stack
-        });
-    }
-})
-
-app.get('/api/cart/total',async (req,res)=>{
-   try {
-      let cart_total = await shoe.total();  
-      res.json({
-          status:'success',
-          data: cart_total
-      })
-   } catch (e) {
-    res.json({
-         status:'error',
-         data: e.stack
-    })
-   }
-})
-
-app.post('/api/shoes/cart/:id', async (req, res) => {
-    try {
-        const {
-            id
-        } = req.params;
-        if (id !== '' && id !== undefined){
-            let addToCart = await shoe.addToShoppingCart(id);
-            res.json({
-                status: "success",
-                data: addToCart
-            })
-        } else {
-            return false;
-        }
-    } catch (e) {
-        res.json({
-            status: 'error',
-            error: e.stack
-        })
-    }
-})
-
-app.post('/api/shoes', async (req, res) => {
-    try {
-        const { brand,color,shoeSize,quantity,price} = req.body;
-        if (brand !== undefined && shoeSize !== undefined && quantity !== undefined &&
-            price !== undefined && color !== undefined) {
-            let addNewShoe = await shoe.addShoe(brand, color, shoeSize, price, quantity);
-            res.json({
-                status: "success",
-                data: addNewShoe
-            })
-        } else {
-            res.json({
-                status: 'error',
-                error: e.stack
-            })
-        }
-    } catch (e) {
-        res.json({
-            status: 'error',
-            error: e.stack
-        })
-    }
-})
+// shopping Cart
+app.get('/api/view_cart',shoppingCartRoutes.view_cart);
+app.get('/api/cart/total',shoppingCartRoutes.cartTotal);
+app.post('/api/shoes/cart/:id',shoppingCartRoutes.addToCart);
+app.get('/api/remove_cart',shoppingCartRoutes.deleteCartItems);
 
 app.listen(PORT, (err) => {
     if (PORT) {

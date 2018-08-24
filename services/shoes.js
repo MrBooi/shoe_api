@@ -1,4 +1,4 @@
-module.export = shoe_shop = (pool) => {
+module.exports =shoppingService = (pool) => {
 
     const shoesList = async () => {
         let shoes = await pool.query("SELECT * FROM shoes");
@@ -18,8 +18,6 @@ module.export = shoe_shop = (pool) => {
              quantity=(quantity+ $1) WHERE brand=$2 AND (color=$3 AND shoeSize=$4)`, [quantity, brandName, color, shoeSize]);
                 return " shoe updated";
             }
-        } else {
-            false
         }
     }
 
@@ -27,27 +25,21 @@ module.export = shoe_shop = (pool) => {
         if (brandName !== "") {
             let found = await pool.query(`SELECT * FROM shoes WHERE brand='${brandName}'`);
             return found.rows;
-        } else {
-            return false;
-        }
+        } 
     }
 
     const filterbySize = async (shoeSize) => {
         if (shoeSize !== '') {
             let found = await pool.query(`SELECT * FROM shoes WHERE shoeSize=${shoeSize}`);
             return found.rows;
-        } else {
-            return false;
-        }
+        } 
     }
 
     const filterbrandAndSize = async (brandName, shoeSize) => {
         if (shoeSize !== '' && brandName !== '') {
             let found = await pool.query(`SELECT * FROM shoes WHERE brand='${brandName}' AND shoeSize=${shoeSize}`);
             return found.rows;
-        } else {
-            return false;
-        }
+        } 
     }
 
     return {

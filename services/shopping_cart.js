@@ -1,6 +1,5 @@
 
-module.exports = ()=>{
-
+module.exports = cartService= (pool)=>{
 
     const addToCart = async (shoe_id) => { 
         if (shoe_id !== '') {
@@ -20,11 +19,8 @@ module.exports = ()=>{
               await pool.query(`UPDATE shoes SET quantity=(quantity-1) where id=${shoe_id} and quantity >0`);
               return true;
             }
-            return true;
           }
-        } else {
-          return false;
-        }
+        } 
     
       }
 
