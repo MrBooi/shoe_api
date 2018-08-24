@@ -246,11 +246,7 @@ describe('remove Items from cart', () => {
           let clearCart = await cartService.clearCart();
          assert.equal(clearCart,true)
     })
-
 })
-
-
-
 
 after(async () => {
     await pool.end();
