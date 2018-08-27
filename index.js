@@ -49,7 +49,6 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-
 // shoes 
 app.get('/api/shoes',shoppingShoesRoutes.show_shoes);
 app.post('/api/shoes',shoppingShoesRoutes.add);
