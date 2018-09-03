@@ -1,7 +1,7 @@
 const request = require('supertest');
 const assert = require('assert');
-
-const baseURL = 'http://localhost:3000';
+const PORT  = process.env.PORT ;
+const baseURL = `http://localhost:${PORT}`  ||'http://localhost:3000';
 
 
 describe('GET /api/shoes', function () {
