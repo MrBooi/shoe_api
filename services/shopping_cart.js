@@ -28,7 +28,7 @@ module.exports = cartService= (pool)=>{
         let result = await pool.query('SELECT * FROM shoe_basket');
         let cartTotal = 0.00;
          if(result.rowCount<0){
-           return cartTotal;
+           return  parseFloat(cartTotal);
          } 
          let subtotals =  result.rows.map(current => parseFloat(current.subtotal))
  

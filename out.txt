@@ -1,0 +1,48 @@
+
+
+  The available shoes function
+    ✓ should return all stored shoes
+
+  The filter function
+    ✓ Should filter by brandName and return all shoes that matches that brand
+    ✓ Should filter by brandName and return false if shoe is not found
+
+  The filter function
+    ✓ Should filter by Size and return all shoes that matches that Size
+
+  The filter function
+    ✓ Should filter by brand and size and return all shoes that matches that brand and size
+
+  The update shoe function
+    ✓ Should update shoe that already exist
+
+  The add shoe function
+    ✓ Should add new shoe
+
+  The add to cart function
+    ✓ Should add shoe into a shopping cart only if shoe does not exist
+
+  The update item on cart 
+    ✓ Should add shoe into a shopping cart only if shoe does not exist (44ms)
+
+  Total of a cart 
+    ✓ Should return 0.00 if cart is not empty (45ms)
+
+  Total of a cart if its empty
+0
+    ✓ Should return 0.00 if cart is empty
+
+  View all Items from a cart
+    ✓ Should get all the items from shopping cart if cart is empty should return shopping cart is empty!!! 
+
+  remove Items from cart
+shopping cart is empty!!!
+    ✓ Should remove all the items from shopping cart
+    ✓ Should remove all the items from shopping cart (53ms)
+
+  GET /api/shoes
+    ✓ respond with json (58ms)
+
+
+  15 passing (703ms)
+
