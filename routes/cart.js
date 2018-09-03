@@ -69,10 +69,12 @@ module.exports = cartService = (cartService) => {
         }
     }
 
+   
     return {
         view_cart,
         cartTotal,
         addToCart,
         deleteCartItems
+       
     }
 }

@@ -41,6 +41,11 @@ module.exports =shoppingService = (pool) => {
             return found.rows;
         } 
     }
+      
+    const deleteShoes = async ()=> {
+      let shoes = 'DELETE  FROM Shoes';
+      return shoes.rows[0]; 
+    }
 
     return {
         allShoes: shoesList,
@@ -48,5 +53,6 @@ module.exports =shoppingService = (pool) => {
         findBySize: filterbySize,
         findBybrandAndSize: filterbrandAndSize,
         addShoe: addShoe,
+        deleteShoes
     }
 }

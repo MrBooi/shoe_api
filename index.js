@@ -55,7 +55,7 @@ app.post('/api/shoes',shoppingShoesRoutes.add);
 app.get('/api/shoes/brand/:brandname',shoppingShoesRoutes.searchByBrand);
 app.get('/api/shoes/size/:size',shoppingShoesRoutes.searchBySize);
 app.get('/api/shoes/brand/:brandname/size/:size',shoppingShoesRoutes.filterByBrandAndSize);
-
+app.get('/api/delete/shoes',shoppingShoesRoutes.deleteShoppingShoes);
 // shopping Cart
 app.get('/api/view_cart',shoppingCartRoutes.view_cart);
 app.get('/api/cart/total',shoppingCartRoutes.cartTotal);

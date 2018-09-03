@@ -117,10 +117,21 @@ module.exports = shoppingRoutes = (shoppingServie) => {
                 error: e.stack
             })
         }
+    }
 
-
-
-
+    const deleteShoppingShoes = async (req, res) => {
+        try {
+            let shopping_cart = await shopping_cart.deleteShoes();
+            res.json({
+                status: "success",
+                data: shopping_cart
+            })
+        } catch (err) {
+            res.json({
+                status: 'error',
+                error: e.stack
+            })
+        }
     }
 
     return {
@@ -129,6 +140,7 @@ module.exports = shoppingRoutes = (shoppingServie) => {
         searchByBrand,
         searchBySize,
         filterByBrandAndSize,
+        deleteShoppingShoes
     }
 
 }
