@@ -26,6 +26,7 @@ module.exports = cartService = (cartService) => {
     const cartTotal = async (req, res) => {
         try {
             let cart_total = await cartService.total();
+             console.log(cart_total);
             res.json({
                 status: 'success',
                 data: cart_total
