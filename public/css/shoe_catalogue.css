@@ -2,6 +2,15 @@
   box-sizing: border-box
 }
 
+ nav .cart{
+
+  float: right ;
+
+}
+
+
+
+
 body{
   widows: 100%;
   margin: 0;
