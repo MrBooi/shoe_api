@@ -2,20 +2,20 @@
   box-sizing: border-box
 }
 
- nav .cart{
-
-  float: right ;
-
-}
-
-
-
-
 body{
   widows: 100%;
   margin: 0;
   padding: 0;
 }
+
+ nav .cart{
+  float: right ;
+}
+
+
+
+
+
 
 h1{
   text-align: center;
