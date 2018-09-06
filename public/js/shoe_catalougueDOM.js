@@ -5,10 +5,11 @@ var stockQtyElem = document.querySelector('.shoeQty');
 var BrandPrice = document.querySelector('.shoePrice');
 var addStockBtn = document.querySelector('.btnStock');
 
-var shoeSelect = document.querySelector('.shoe');
+var shoeSelect = document.querySelector('.brandname');
 var colorSelect = document.querySelector('.shoeColors');
-var ShoeSizeSelect = document.querySelector('.shoeSizes');
-var searchShoesBtn = document.querySelector('.searchBtn');
+var ShoeSizeSelect = document.querySelector('.shoeSize');
+var searchShoesBtn = document.querySelector('.search-btn');
+
 var storeToBasket = document.querySelector('.btnCart');
 var removeItemElem = document.querySelector('.CartRemove');
 
@@ -19,11 +20,12 @@ var successfulElem = document.querySelector('.successful');
 // Template setup
 var templateSource = document.querySelector(".ShoeTemplate").innerHTML;
 var shoeTemplate = Handlebars.compile(templateSource);
-var displayShoesElem = document.querySelector('.displayArea');
+
+var displayShoesElem = document.querySelector('.my_card');
 
 var templateSource1 = document.querySelector(".ShoeBasketTemplate").innerHTML;
 var BasketshoeTemplate = Handlebars.compile(templateSource1);
-var displayShoesBasketElem = document.querySelector('.ShoppingBasket');
+var displayShoesBasketElem = document.querySelector('.shoppingBasket');
 
 
 var shoe_Catalogue = ShoeCatalogue_api();
@@ -62,13 +64,14 @@ const clearCart=()=> {
     })
 }
 
-addStockBtn.addEventListener('click', function () {
-  addStock();
-});
+// addStockBtn.addEventListener('click', function () {
+//   addStock();
+// });
 
 searchShoesBtn.addEventListener('click', function () {
 
   if (shoeSelect.value !=='') {
+     console.log('here')
     shoe_Catalogue.searchByBrand(shoeSelect.value)
     .then(result => {
       let searchData = result.data.data;
@@ -96,11 +99,9 @@ searchShoesBtn.addEventListener('click', function () {
 
 });
 
-window.addEventListener('load', () => {
-  getShoes();
-});
 
-removeItemElem.addEventListener('click', clearCart);
+
+ removeItemElem.addEventListener('click', clearCart);
 
 const getShoes = () => {
   shoe_Catalogue.viewStocks()
@@ -111,6 +112,10 @@ const getShoes = () => {
       viewCart();
     })
 }
+
+window.addEventListener('load', () => {
+      getShoes();
+});
 
 const search_stock = (searchData) => {
   displayShoesElem.innerHTML = shoeTemplate({
