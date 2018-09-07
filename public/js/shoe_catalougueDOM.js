@@ -1,6 +1,6 @@
-var brandElem = document.querySelector('.shoeBrand');
+var brandElem = document.querySelector('.shoebrand');
 var colorElem = document.querySelector('.shoeColor');
-var sizeElem = document.querySelector('.shoeSize');
+var sizeElem = document.querySelector('.shoesize');
 var stockQtyElem = document.querySelector('.shoeQty');
 var BrandPrice = document.querySelector('.shoePrice');
 var addStockBtn = document.querySelector('.btnStock');
@@ -13,9 +13,9 @@ var searchShoesBtn = document.querySelector('.search-btn');
 var storeToBasket = document.querySelector('.btnCart');
 var removeItemElem = document.querySelector('.CartRemove');
 
-var alertElem = document.querySelector('.alert');
+var alertElem = document.querySelector('.error');
 var updateElem = document.querySelector('.update');
-var successfulElem = document.querySelector('.successful');
+var successfulElem = document.querySelector('.message');
 
 // Template setup
 var templateSource = document.querySelector(".ShoeTemplate").innerHTML;
@@ -31,20 +31,26 @@ var displayShoesBasketElem = document.querySelector('.shoppingBasket');
 var shoe_Catalogue = ShoeCatalogue_api();
 
 const addStock = () => {
-  if (brandElem.value !== "" && colorElem.value !== "" && colorElem.value !== "" && sizeElem.value !== "" && BrandPrice.value !== "") {
+  if (brandElem.value !== "" && colorElem.value !== "" && colorElem.value !== ""
+   && sizeElem.value !== "" && BrandPrice.value !== "") {
+     
     shoe_Catalogue.addNewStock(
       brandElem.value,
       colorElem.value,
       sizeElem.value,
       BrandPrice.value,
-      stockQtyElem.value,
+      stockQtyElem.value
     ).then(result => {
       if (result.data.status === "success") {
           getShoes();
           clear_fields();
-        successfulElem.style.display = 'inline-block';
+        successfulElem.style.display = 'block';
+      }else{
+        alertElem.style.display='block';
       }
     })
+  }else{
+    alertElem.style.display='block';
   }
 }
 
@@ -64,9 +70,9 @@ const clearCart=()=> {
     })
 }
 
-// addStockBtn.addEventListener('click', function () {
-//   addStock();
-// });
+addStockBtn.addEventListener('click', function () {
+  addStock();
+});
 
 searchShoesBtn.addEventListener('click', function () {
 
@@ -143,4 +149,19 @@ const clear_fields=()=>{
   stockQtyElem.value = "";
   sizeElem.value = "";
   BrandPrice.value = "";
+}
+
+
+  
+if(alertElem !==''){
+  setTimeout(() => 
+  alertElem.style.display='none',6000
+)
+}
+
+
+if(successfulElem !==''){
+  setTimeout(() => 
+  successfulElem.style.display='none',6000
+)
 }
