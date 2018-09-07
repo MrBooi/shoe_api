@@ -26,7 +26,7 @@ var displayShoesElem = document.querySelector('.my_card');
 var templateSource1 = document.querySelector(".ShoeBasketTemplate").innerHTML;
 var BasketshoeTemplate = Handlebars.compile(templateSource1);
 var displayShoesBasketElem = document.querySelector('.shoppingBasket');
-
+var totalElem = document.querySelector('.total');
 
 var shoe_Catalogue = ShoeCatalogue_api();
 
@@ -136,9 +136,9 @@ const viewCart = () => {
       shoe_Catalogue.viewShopping()
         .then(result => {
           displayShoesBasketElem.innerHTML = BasketshoeTemplate({
-            BasketList: result.data.data,
-            total
+            BasketList: result.data.data
           });
+          totalElem.innerHTML= 'Total: R'+total
         })
     })
 }

@@ -193,3 +193,14 @@ table{
   }
 
 }
+
+.modal > div{
+  width: 400px !important;
+}
+
+.total{
+  position: absolute;
+  left: 12px;
+  font-size: 120%;
+  font-weight: 700;
+}

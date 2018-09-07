@@ -101,21 +101,27 @@
         </div>
         <div class="modal-body shoppingBasket">
           <script type="text/x-template" class="ShoeBasketTemplate">
+          
             {{#each BasketList}}
             <tr>
-              <td>{{qty}}x {{brand}} (size {{shoesize}}) @ R{{subtotal}}</td>
+              <td>{{qty}}x  {{brand}} - {{color}} (size {{shoesize}}) @ R{{subtotal}}</td>
             </tr>
               <br> <hr>
             {{/each}}
-            <td>Total:</td>
-            <td>R{{total}}.00</td>
           </script>
+          
         </div>
-
+ 
         <div class="modal-footer">
+          <div class="total">
+              <script type="text/x-template" class="ShoeBasketTemplate">
+                {{total}}
+             </script>
+          </div>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-success CartRemove"><i class="fas fa-trash-alt"></i> checkout</button>
         </div>
+     
       </div>
     </div>
   </div>
@@ -177,7 +183,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary btnStock"><i class="fas fa-plus-circle"></i> Confirm</button>
+          <button type="button" class="btn btn-primary btnStock"><i class="fas fa-plus-circle"></i> Add</button>
         </div>
       </div>
     </div>
