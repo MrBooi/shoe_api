@@ -46,149 +46,149 @@
       </div>
     {{/each}}
           </script>
-
-
-
 </head>
 
 <body>
-    <div class="container">
-  <div class="rows main">
-    <div class="shopping-items">
-      <a class="link-nav" href="/">Booi Store</a>
-      <a class="carts" href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-cart-plus"></i></a>
+  <div class="container">
+    <div class="rows main">
+      <div class="shopping-items">
+        <a class="link-nav" href="/">Booi Store</a>
+        <a class="carts" href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-cart-plus"></i></a>
+      </div>
     </div>
-  </div>
 
-  <div class="rows left">
-    <select class="custom-select brandname" id="inputGroupSelect01">
-      <option selected value="">Choose...</option>
-      <option value="Nike">Nike</option>
-      <option value="Puma">Puma</option>
-      <option value="Le coq">Le Coq</option>
-    </select>
-    <select class="custom-select shoeSize" id="inputGroupSelect01">
-      <option selected value="">Size...</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-    </select>
-    <button type="button" class="btn btn-lg btn-primary search-btn"><i class="fas fa-search"></i> Search</button>
-    <button type="button" class="btn btn-lg btn-success search-btn"  data-toggle="modal" data-target="#exampleModalLong" ><i class="far fa-plus-square"></i> Add new shoes</button>
-  
-  </div>
+    <div class="rows left">
+      <select class="custom-select brandname" id="inputGroupSelect01">
+        <option selected value="">Choose...</option>
+        <option value="Nike">Nike</option>
+        <option value="Puma">Puma</option>
+        <option value="Le coq">Le Coq</option>
+      </select>
+      <select class="custom-select shoeSize" id="inputGroupSelect01">
+        <option selected value="">Size...</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+      </select>
+      <button type="button" class="btn btn-lg btn-primary search-btn"><i class="fas fa-search"></i> Search</button>
+      <button type="button" class="btn btn-lg btn-success search-btn" data-toggle="modal" data-target="#exampleModalLong"><i
+          class="far fa-plus-square"></i> Add new shoes</button>
 
-  <div class="rows main-screen">
-    <div class="my_card">
     </div>
-  </div>
 
-  <!-- Modal cart -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Shopping Cart</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body shoppingBasket">
-          <script type="text/x-template" class="ShoeBasketTemplate">
-          
-            {{#each BasketList}}
+    <div class="rows main-screen">
+      <div class="my_card">
+      </div>
+    </div>
+
+    <!-- Modal cart -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Shopping Cart</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body shoppingBasket">
+            <script type="text/x-template" class="ShoeBasketTemplate">
+
+              {{#each BasketList}}
             <tr>
               <td>{{qty}}x  {{brand}} - {{color}} (size {{shoesize}}) @ R{{subtotal}}</td>
             </tr>
               <br> <hr>
             {{/each}}
           </script>
-          
-        </div>
- 
-        <div class="modal-footer">
-          <div class="total">
+
+          </div>
+
+          <div class="modal-footer">
+            <div class="total">
               <script type="text/x-template" class="ShoeBasketTemplate">
                 {{total}}
              </script>
+            </div>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success CartRemove"><i class="fas fa-trash-alt"></i> checkout</button>
           </div>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-success CartRemove"><i class="fas fa-trash-alt"></i> checkout</button>
+
         </div>
-     
       </div>
     </div>
-  </div>
 
 
-  <!-- Modal new shoes -->
-  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Add new shoes</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-bodys add-new">
+    <!-- Modal new shoes -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add new shoes</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-bodys add-new">
             <form>
-                <div class="form-group">
-                  <select class="form-control shoebrand">
-                    <option value="">Select brand..</option>
-                    <option value="Nike">Nike</option>
-                    <option value="Puma">Puma</option>
-                    <option value="Le coq">Le coq</option>
-                    <option value="Adidas">Adidas</option>
-                  </select>
-                  <select class="form-control shoeColor">
-                    <option value="">Select color..</option>
-                    <option value="Black">Black</option>
-                    <option value="Brown">Brown</option>
-                    <option value="White">white</option>
-                    <option value="Blue">Blue</option>
-                  </select>
-                  <select class="form-control shoesize">
-                    <option value="">Select Size..</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                  </select>
-                  <input type="input" class="form-control shoeQty" id="recipient-name" placeholder="enter shoe quantity">
-                  <input type="input" class="form-control shoePrice" id="recipient-name" placeholder="Enter shoe price">
-                </div>
-                
-                    <div class="message">
-                      <div class="alert alert-success" role="alert">
-                            shoe is successful added
-                      </div>
-                    </div>
+              <div class="form-group">
+                <select class="form-control shoebrand">
+                  <option value="">Select brand..</option>
+                  <option value="Nike">Nike</option>
+                  <option value="Puma">Puma</option>
+                  <option value="Le coq">Le coq</option>
+                  <option value="Adidas">Adidas</option>
+                </select>
+                <select class="form-control shoeColor">
+                  <option value="">Select color..</option>
+                  <option value="Black">Black</option>
+                  <option value="Brown">Brown</option>
+                  <option value="White">white</option>
+                  <option value="Blue">Blue</option>
+                </select>
+                <select class="form-control shoesize">
+                  <option value="">Select Size..</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+                <input type="input" class="form-control shoeQty" id="recipient-name" placeholder="enter shoe quantity">
+                <input type="input" class="form-control shoePrice" id="recipient-name" placeholder="Enter shoe price">
+              </div>
 
-                    <div class="error">
-                        <div class="alert alert-danger" role="alert">
-                            opps!! wrong data
-                      </div>
-                    </div>
-                  
-                     
-              </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary btnStock"><i class="fas fa-plus-circle"></i> Add</button>
+              <div class="message">
+                <div class="alert alert-success" role="alert">
+                  shoe is successful added
+                </div>
+              </div>
+
+              <div class="error">
+                <div class="alert alert-danger" role="alert">
+                  opps!! wrong data
+                </div>
+              </div>
+
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary btnStock"><i class="fas fa-plus-circle"></i> Add</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
   <!-- <button type="button" class="btn btn-primary">
     <i class="fas fa-cart-plus"></i> <span class="badge badge-light">4</span>

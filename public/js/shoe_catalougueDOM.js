@@ -31,9 +31,9 @@ var totalElem = document.querySelector('.total');
 var shoe_Catalogue = ShoeCatalogue_api();
 
 const addStock = () => {
-  if (brandElem.value !== "" && colorElem.value !== "" && colorElem.value !== ""
-   && sizeElem.value !== "" && BrandPrice.value !== "") {
-     
+  if (brandElem.value !== "" && colorElem.value !== "" && colorElem.value !== "" &&
+    sizeElem.value !== "" && BrandPrice.value !== "") {
+
     shoe_Catalogue.addNewStock(
       brandElem.value,
       colorElem.value,
@@ -42,15 +42,15 @@ const addStock = () => {
       stockQtyElem.value
     ).then(result => {
       if (result.data.status === "success") {
-          getShoes();
-          clear_fields();
+        getShoes();
+        clear_fields();
         successfulElem.style.display = 'block';
-      }else{
-        alertElem.style.display='block';
+      } else {
+        alertElem.style.display = 'block';
       }
     })
-  }else{
-    alertElem.style.display='block';
+  } else {
+    alertElem.style.display = 'block';
   }
 }
 
@@ -61,12 +61,12 @@ const searchByID = (idValue) => {
     })
 }
 
-const clearCart=()=> {
+const clearCart = () => {
   shoe_Catalogue.removeStock()
     .then(result => {
-    if(result.data.status='status'){
-      viewCart();
-    }
+      if (result.data.status = 'status') {
+        viewCart();
+      }
     })
 }
 
@@ -76,38 +76,35 @@ addStockBtn.addEventListener('click', function () {
 
 searchShoesBtn.addEventListener('click', function () {
 
-  if (shoeSelect.value !=='') {
-     console.log('here')
+  if (shoeSelect.value !== '') {
     shoe_Catalogue.searchByBrand(shoeSelect.value)
-    .then(result => {
-      let searchData = result.data.data;
-      search_stock(searchData);
-    })
+      .then(result => {
+        let searchData = result.data.data;
+        search_stock(searchData);
+      })
   }
-   
-  if (ShoeSizeSelect.value !=='') {
+
+  if (ShoeSizeSelect.value !== '') {
     shoe_Catalogue.searchBySize(ShoeSizeSelect.value)
-    .then(result => {
-      let searchData = result.data.data;
-      search_stock(searchData);
-    })
+      .then(result => {
+        let searchData = result.data.data;
+        search_stock(searchData);
+      })
   }
 
-  if (shoeSelect.value !=='' && ShoeSizeSelect.value !=='') {
+  if (shoeSelect.value !== '' && ShoeSizeSelect.value !== '') {
     shoe_Catalogue.filterByBrandAndSize(shoeSelect.value, ShoeSizeSelect.value)
-    .then(result => {
-      let searchData = result.data.data;
-      search_stock(searchData);
-    })
+      .then(result => {
+        let searchData = result.data.data;
+        search_stock(searchData);
+      })
   }
-
-  
 
 });
 
 
 
- removeItemElem.addEventListener('click', clearCart);
+removeItemElem.addEventListener('click', clearCart);
 
 const getShoes = () => {
   shoe_Catalogue.viewStocks()
@@ -120,7 +117,7 @@ const getShoes = () => {
 }
 
 window.addEventListener('load', () => {
-      getShoes();
+  getShoes();
 });
 
 const search_stock = (searchData) => {
@@ -138,30 +135,29 @@ const viewCart = () => {
           displayShoesBasketElem.innerHTML = BasketshoeTemplate({
             BasketList: result.data.data
           });
-          totalElem.innerHTML= 'Total: R'+total
+          totalElem.innerHTML = 'Total: R' + total
         })
     })
 }
 
-const clear_fields=()=>{
+
+if (alertElem.innerHTML !== '') {
+  setTimeout(() =>
+    alertElem.style.display = 'none', 5000
+  )
+}
+
+if (successfulElem !== '') {
+  setTimeout(() =>
+
+    successfulElem.style.display = 'none', 6000
+  )
+}
+
+const clear_fields = () => {
   brandElem.value = "";
   colorElem.value = "";
   stockQtyElem.value = "";
   sizeElem.value = "";
   BrandPrice.value = "";
-}
-
-
-  
-if(alertElem !==''){
-  setTimeout(() => 
-  alertElem.style.display='none',6000
-)
-}
-
-
-if(successfulElem !==''){
-  setTimeout(() => 
-  successfulElem.style.display='none',6000
-)
 }
