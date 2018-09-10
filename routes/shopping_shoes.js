@@ -6,7 +6,7 @@ module.exports = shoppingRoutes = (shoppingServie) => {
             res.json({
                 status: "success",
                 data: shoes
-            });
+            })
         } catch (e) {
             res.json({
                 status: 'error',
@@ -15,7 +15,7 @@ module.exports = shoppingRoutes = (shoppingServie) => {
         }
     }
 
-    const searchByBrand = async (req,res) => {
+    const searchByBrand = async (req, res) => {
         try {
             const {
                 brandname

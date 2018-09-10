@@ -36,10 +36,10 @@ const pool = new Pool({
     ssl: useSSL
 });
 
-const cartService =CartService(pool);
-const shoppingService= ShoppingService(pool); 
+const cartService = CartService(pool);
+const shoppingService = ShoppingService(pool);
 
-const shoppingCartRoutes  = Cart(cartService);
+const shoppingCartRoutes = Cart(cartService);
 const shoppingShoesRoutes = Shopping_shoes(shoppingService);
 
 
@@ -50,23 +50,16 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // shoes 
-app.get('/api/shoes',shoppingShoesRoutes.show_shoes);
-app.post('/api/shoes',shoppingShoesRoutes.add);
-app.get('/api/shoes/brand/:brandname',shoppingShoesRoutes.searchByBrand);
-app.get('/api/shoes/size/:size',shoppingShoesRoutes.searchBySize);
-app.get('/api/shoes/brand/:brandname/size/:size',shoppingShoesRoutes.filterByBrandAndSize);
-app.get('/api/delete/shoes',shoppingShoesRoutes.deleteShoppingShoes);
+app.get('/api/shoes', shoppingShoesRoutes.show_shoes);
+app.post('/api/shoes', shoppingShoesRoutes.add);
+app.get('/api/shoes/brand/:brandname', shoppingShoesRoutes.searchByBrand);
+app.get('/api/shoes/size/:size', shoppingShoesRoutes.searchBySize);
+app.get('/api/shoes/brand/:brandname/size/:size', shoppingShoesRoutes.filterByBrandAndSize);
+app.get('/api/delete/shoes', shoppingShoesRoutes.deleteShoppingShoes);
 // shopping Cart
-app.get('/api/view_cart',shoppingCartRoutes.view_cart);
-app.get('/api/cart/total',shoppingCartRoutes.cartTotal);
-app.post('/api/shoes/cart/:id',shoppingCartRoutes.addToCart);
-app.get('/api/remove_cart',shoppingCartRoutes.deleteCartItems);
+app.get('/api/view_cart', shoppingCartRoutes.view_cart);
+app.get('/api/cart/total', shoppingCartRoutes.cartTotal);
+app.post('/api/shoes/cart/:id', shoppingCartRoutes.addToCart);
+app.get('/api/remove_cart', shoppingCartRoutes.deleteCartItems);
 
-app.listen(PORT, (err) => {
-    if (PORT) {
-    console.log('App starting on port', PORT);
-    }else{
-     console.log('App starting on port', err);
-    }
-   
-});
+app.listen(PORT, () => console.log('App starting on port', PORT))
