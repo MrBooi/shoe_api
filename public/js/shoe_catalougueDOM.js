@@ -65,6 +65,7 @@ const searchByID = (idValue) => {
   shoe_Catalogue.addToShoppingCart(idValue.id)
     .then(result => {
       getShoes();
+      search()
     })
 }
 
